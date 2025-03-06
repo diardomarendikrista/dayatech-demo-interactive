@@ -11,10 +11,10 @@ export default function PsikologDialog() {
   };
 
   return (
-    <div className="flex gap-3">
-      <div className="min-w-[200px] max-w-[200px]">
+    <div className="flex flex-col md:flex-row gap-3">
+      <div className="m-auto overflow-hidden">
         <img
-          width={"100%"}
+          className="w-auto h-[200px] md:min-w-[200px] md:h-auto"
           src="psikolog.png"
           alt="psikolog"
         />
@@ -46,8 +46,8 @@ export default function PsikologDialog() {
           </>
         )}
 
-        <div>
-          <Button onClick={() => handleClose()}>Tutup Dialog</Button>
+        <div className="m-auto md:m-0 mt-3">
+          <Button onClick={() => handleClose()}>Mengerti</Button>
         </div>
       </div>
     </div>

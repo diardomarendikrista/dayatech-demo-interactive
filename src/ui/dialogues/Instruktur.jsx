@@ -16,7 +16,7 @@ export default function InstrukturDialog() {
         <div>Silahkan duduk di kursi yang kosong dan kerjakan soalnya.</div>
         <div>Kalau belum bisa mengerjakan, tanya mentari dulu.</div>
 
-        <div>
+        <div className="m-auto md:m-0 mt-3">
           <Button onClick={() => handleClose()}>Tutup Dialog</Button>
         </div>
       </div>

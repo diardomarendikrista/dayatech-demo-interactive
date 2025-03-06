@@ -17,14 +17,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   createAnimations(scene) {
     scene.anims.create({
       key: "walk-down",
-      frames: scene.anims.generateFrameNumbers("player", { start: 19, end: 23 }),
+      frames: scene.anims.generateFrameNumbers("player", {
+        start: 19,
+        end: 23,
+      }),
       frameRate: 8,
       repeat: -1,
     });
 
     scene.anims.create({
       key: "walk-left",
-      frames: scene.anims.generateFrameNumbers("player", { start: 12, end: 17 }),
+      frames: scene.anims.generateFrameNumbers("player", {
+        start: 12,
+        end: 17,
+      }),
       frameRate: 8,
       repeat: -1,
     });
@@ -44,30 +50,30 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-  move(cursors, wasd) {
+  move(cursors, wasd, mobileInput) {
     const isRunning = cursors.shift?.isDown || wasd.shift?.isDown;
-    const speed = isRunning ? 400 : 200; // Adjust speed based on Shift key
+    const speed = isRunning ? 400 : 200;
     let anim = this.lastPosition.anim;
     let moving = false;
 
     this.setVelocity(0);
 
-    if (cursors.left.isDown || wasd.left.isDown) {
+    if (cursors.left.isDown || wasd.left.isDown || mobileInput.left) {
       this.setVelocityX(-speed);
       this.anims.play("walk-left", true);
       anim = "walk-left";
       moving = true;
-    } else if (cursors.right.isDown || wasd.right.isDown) {
+    } else if (cursors.right.isDown || wasd.right.isDown || mobileInput.right) {
       this.setVelocityX(speed);
       this.anims.play("walk-right", true);
       anim = "walk-right";
       moving = true;
-    } else if (cursors.up.isDown || wasd.up.isDown) {
+    } else if (cursors.up.isDown || wasd.up.isDown || mobileInput.up) {
       this.setVelocityY(-speed);
       this.anims.play("walk-up", true);
       anim = "walk-up";
       moving = true;
-    } else if (cursors.down.isDown || wasd.down.isDown) {
+    } else if (cursors.down.isDown || wasd.down.isDown || mobileInput.down) {
       this.setVelocityY(speed);
       this.anims.play("walk-down", true);
       anim = "walk-down";

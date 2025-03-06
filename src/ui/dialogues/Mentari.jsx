@@ -12,10 +12,10 @@ export default function MentariDialog() {
   };
 
   return (
-    <div className="flex gap-3">
-      <div className="min-w-[200px] max-w-[200px]">
+    <div className="flex flex-col md:flex-row gap-3">
+      <div className="m-auto overflow-hidden">
         <img
-          width={"100%"}
+          className="w-auto h-[200px] md:min-w-[200px] md:h-auto"
           src="mentari.png"
           alt="mentari"
         />
@@ -31,7 +31,7 @@ export default function MentariDialog() {
           di ruangan paling kanan
         </div>
 
-        <div>
+        <div className="m-auto md:m-0 mt-3">
           <Button onClick={() => handleClose()}>Mengerti</Button>
         </div>
       </div>

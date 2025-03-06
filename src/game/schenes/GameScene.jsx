@@ -7,6 +7,7 @@ class GameScene extends Phaser.Scene {
   constructor() {
     super("GameScene");
     this.mapManager = new Map(this);
+    this.mobileInput = { up: false, down: false, left: false, right: false };
   }
 
   async preload() {
@@ -81,6 +82,9 @@ class GameScene extends Phaser.Scene {
         );
       }
     });
+    window.addEventListener("mobileAction", () => {
+      this.input.keyboard.emit("keydown-X");
+    });
 
     const npc1 = new NPC(this, 110, 212, "mentari", "Mentari", 18, 23);
     const npc2 = new NPC(this, 1050, 255, "doctor", "Budi", 12, 17);
@@ -101,11 +105,15 @@ class GameScene extends Phaser.Scene {
     window.addEventListener("updateCanMove", (event) => {
       this.canMove = event.detail; // Ambil nilai dari React
     });
+
+    window.addEventListener("mobileMove", (event) => {
+      this.mobileInput = event.detail;
+    });
   }
 
   update(time, delta) {
     if (this.player && this.canMove) {
-      this.player.move(this.cursors, this.wasd);
+      this.player.move(this.cursors, this.wasd, this.mobileInput);
     }
 
     if (this.interactingObject) {
