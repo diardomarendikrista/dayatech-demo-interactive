@@ -26,13 +26,34 @@ class GameScene extends Phaser.Scene {
     });
   }
 
-  async create() {
+  create() {
     this.mapManager.create();
+    this.createPlayer();
+    this.setupCamera();
+    this.setupControls();
+    this.createNPCs();
+    this.setupEventListeners();
+  }
 
+  update(time, delta) {
+    if (this.player && this.canMove) {
+      this.player.move(this.cursors, this.wasd, this.mobileInput);
+    }
+
+    if (this.interactingObject) {
+      if (!this.physics.overlap(this.player, this.interactingObject)) {
+        this.interactText.setVisible(false);
+        this.interactingObject = null;
+      }
+    }
+  }
+
+  createPlayer() {
     this.player = new Player(this, 123, 484, "player");
-
     this.mapManager.addCollisions(this.player); // collision dengan layer obstacle
+  }
 
+  setupCamera() {
     this.cameras.main.setBounds(
       0,
       0,
@@ -40,7 +61,9 @@ class GameScene extends Phaser.Scene {
       this.mapManager.map.heightInPixels
     );
     this.cameras.main.startFollow(this.player);
+  }
 
+  setupControls() {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.wasd = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -57,7 +80,25 @@ class GameScene extends Phaser.Scene {
         padding: { x: 5, y: 5 },
       })
       .setVisible(false);
+  }
 
+  createNPCs() {
+    const npc1 = new NPC(this, 110, 212, "mentari", "Mentari", 18, 23);
+    const npc2 = new NPC(this, 1050, 255, "doctor", "Budi", 12, 17);
+    this.npcGroup = this.physics.add.group();
+    this.npcGroup.add(npc1);
+    this.npcGroup.add(npc2);
+    // Tambahkan collider antara player dan npcGroup agar tidak bisa ditembus
+    this.physics.add.collider(this.player, this.npcGroup);
+
+    // Pastikan semua NPC immovable
+    this.npcGroup.children.iterate((npc) => {
+      npc.body.setImmovable(true);
+      npc.body.setAllowGravity(false);
+    });
+  }
+
+  setupEventListeners() {
     this.physics.add.overlap(
       this.player,
       this.interactObjects,
@@ -85,43 +126,14 @@ class GameScene extends Phaser.Scene {
     window.addEventListener("mobileAction", () => {
       this.input.keyboard.emit("keydown-X");
     });
-
-    const npc1 = new NPC(this, 110, 212, "mentari", "Mentari", 18, 23);
-    const npc2 = new NPC(this, 1050, 255, "doctor", "Budi", 12, 17);
-    this.npcGroup = this.physics.add.group();
-    this.npcGroup.add(npc1);
-    this.npcGroup.add(npc2);
-    // Tambahkan collider antara player dan npcGroup agar tidak bisa ditembus
-    this.physics.add.collider(this.player, this.npcGroup);
-
-    // Pastikan semua NPC immovable
-    this.npcGroup.children.iterate((npc) => {
-      npc.body.setImmovable(true);
-      npc.body.setAllowGravity(false);
-    });
-
-    this.canMove = true;
-
-    window.addEventListener("updateCanMove", (event) => {
-      this.canMove = event.detail; // Ambil nilai dari React
-    });
-
     window.addEventListener("mobileMove", (event) => {
       this.mobileInput = event.detail;
     });
-  }
 
-  update(time, delta) {
-    if (this.player && this.canMove) {
-      this.player.move(this.cursors, this.wasd, this.mobileInput);
-    }
-
-    if (this.interactingObject) {
-      if (!this.physics.overlap(this.player, this.interactingObject)) {
-        this.interactText.setVisible(false);
-        this.interactingObject = null;
-      }
-    }
+    this.canMove = true;
+    window.addEventListener("updateCanMove", (event) => {
+      this.canMove = event.detail; // Ambil nilai dari React
+    });
   }
 }
 
