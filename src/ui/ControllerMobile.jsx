@@ -20,7 +20,7 @@ export default function ControllerMobile() {
   };
 
   return (
-    <div className="absolute w-full bottom-[10px] left-[50%] transform -translate-x-1/2  text-[#fff] sm:hidden">
+    <div className="absolute w-full bottom-[80px] left-[50%] transform -translate-x-1/2  text-[#fff] sm:hidden">
       <div className="flex justify-between items-center">
         <div className="flex flex-col items-center ms-4">
           <ControllerButton
