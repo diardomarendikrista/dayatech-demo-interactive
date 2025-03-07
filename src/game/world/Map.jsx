@@ -1,6 +1,7 @@
 class Map {
   constructor(scene) {
     this.scene = scene;
+    this.outdoorPropsLayer = null;
   }
 
   preload() {
@@ -29,18 +30,26 @@ class Map {
       "Interiors_free_32x32",
       "furnitureTiles"
     );
-    const outdoorTile = map.addTilesetImage(
-      "terrain_tiles_v2",
-      "outdoorTiles"
+    const outdoorTile = map.addTilesetImage("terrain_tiles_v2", "outdoorTiles");
+    const outdoorProps = map.addTilesetImage(
+      "assets_spritesheet_v2_fix_diardo",
+      "outdoorProps"
     );
-    const outdoorProps = map.addTilesetImage("assets_spritesheet_v2_fix_diardo", "outdoorProps");
 
     map.createLayer("outdoor1", outdoorTile, 0, 0);
-    map.createLayer("outdoor2", outdoorProps, 0, 0);
+    const outdoorPropsLayer = map.createLayer("outdoor2", outdoorProps, 0, 0);
     map.createLayer("floor", baseTile, 0, 0);
     map.createLayer("layer1", furnitureTile, 0, 0);
     map.createLayer("layer2", furnitureTile, 0, 0);
     map.createLayer("layer3", furnitureTile, 0, 0);
+    const overheadOutdoorLayer = map.createLayer(
+      "outdoorOverhead",
+      outdoorProps,
+      0,
+      0
+    );
+    overheadOutdoorLayer.setDepth(20);
+    this.outdoorPropsLayer = outdoorPropsLayer;
 
     // keperluan kamera
     this.scene.physics.world.setBounds(
@@ -55,6 +64,7 @@ class Map {
   }
 
   addCollisions(player) {
+    // ambil dari layer obstacles
     const obstaclesLayer = this.map.getObjectLayer("obstacles");
     obstaclesLayer.objects.forEach((obj) => {
       const obstacle = this.scene.physics.add.staticBody(
@@ -65,6 +75,10 @@ class Map {
       );
       this.scene.physics.add.collider(player, obstacle);
     });
+
+    // ambil property collide dari outdoorPropsLayer
+    this.outdoorPropsLayer.setCollisionByProperty({ collide: true });
+    this.scene.physics.add.collider(player, this.outdoorPropsLayer);
   }
 
   createInteractableObjects() {

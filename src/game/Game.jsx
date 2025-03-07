@@ -12,7 +12,7 @@ function Game() {
       pixelArt: true, // fix line on floor
       physics: {
         default: "arcade",
-        arcade: { debug: false },
+        arcade: { debug: true },
       },
       scene: [GameScene],
     };
