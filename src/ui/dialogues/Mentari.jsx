@@ -13,7 +13,7 @@ export default function MentariDialog() {
 
   return (
     <div className="flex flex-col md:flex-row gap-3">
-      <div className="m-auto overflow-hidden">
+      <div className="m-auto overflow-hidden md:min-w-[200px] ">
         <img
           className="w-auto h-[200px] md:min-w-[200px] md:h-auto"
           src="mentari.png"
