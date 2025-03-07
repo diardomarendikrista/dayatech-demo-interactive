@@ -6,6 +6,11 @@ class Map {
   preload() {
     this.scene.load.image("roomTiles", "Room_Builder_free_32x32.png");
     this.scene.load.image("furnitureTiles", "Interiors_free_32x32.png");
+    this.scene.load.image("outdoorTiles", "terrain_tiles_v2.png");
+    this.scene.load.image(
+      "outdoorProps",
+      "assets_spritesheet_v2_fix_diardo.png"
+    );
     this.scene.load.tilemapTiledJSON("map", "demo-interactive.json");
   }
 
@@ -24,7 +29,14 @@ class Map {
       "Interiors_free_32x32",
       "furnitureTiles"
     );
+    const outdoorTile = map.addTilesetImage(
+      "terrain_tiles_v2",
+      "outdoorTiles"
+    );
+    const outdoorProps = map.addTilesetImage("assets_spritesheet_v2_fix_diardo", "outdoorProps");
 
+    map.createLayer("outdoor1", outdoorTile, 0, 0);
+    map.createLayer("outdoor2", outdoorProps, 0, 0);
     map.createLayer("floor", baseTile, 0, 0);
     map.createLayer("layer1", furnitureTile, 0, 0);
     map.createLayer("layer2", furnitureTile, 0, 0);
