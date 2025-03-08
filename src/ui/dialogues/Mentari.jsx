@@ -10,14 +10,7 @@ export default function MentariDialog() {
   const [, setShowDialog] = useAtom(showDialogAtom);
   const [, setProgress] = useAtom(progressAtom);
 
-  const [showChat, setShowChat] = useState(false);
-
-  const handleClose = () => {
-    setProgress((prev) => ({ ...prev, mentari: true }));
-    setShowDialog(false);
-  };
-
-  const initialMessages = [
+  const [initialMessages] = useState([
     { message: "Halooo aku Mentari" },
     {
       message:
@@ -27,7 +20,13 @@ export default function MentariDialog() {
       message:
         "Setelah mengerjakan, kamu bisa langsung berbicara pada bapack Psikolog di ruangan paling kanan.",
     },
-  ];
+  ]);
+  const [showChat, setShowChat] = useState(false);
+
+  const handleClose = () => {
+    setProgress((prev) => ({ ...prev, mentari: true }));
+    setShowDialog(false);
+  };
 
   useEffect(() => {
     if (dialogWith === "mentari") {
