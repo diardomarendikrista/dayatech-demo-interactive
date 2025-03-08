@@ -3,8 +3,8 @@ import {
   MagnifyingGlassIcon,
   SparklesIcon,
 } from "@heroicons/react/24/solid";
-import ButtonSmall from "Components/ButtonSmall";
-import TextArea from "Components/TextArea";
+import ButtonSmall from "components/ButtonSmall";
+import TextArea from "components/TextArea";
 import { cn } from "lib/utils";
 import { actionHandleSendMessage } from "./actions";
 
