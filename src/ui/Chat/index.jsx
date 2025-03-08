@@ -1,4 +1,4 @@
-import ChatBalloon from "Components/ChatBalloon";
+import ChatBalloon from "components/ChatBalloon";
 import { useEffect, useRef, useState } from "react";
 import InputChat from "./InputChat";
 import { cn } from "lib/utils";
