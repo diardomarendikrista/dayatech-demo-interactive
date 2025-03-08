@@ -48,8 +48,8 @@ class Map {
       0,
       0
     );
-    overheadOutdoorLayer.setDepth(20);
-    this.outdoorPropsLayer = outdoorPropsLayer;
+    overheadOutdoorLayer.setDepth(20); // ini bagian atau lapisan tertinggi di game (rimbunan pohon, dsb)
+    this.outdoorPropsLayer = outdoorPropsLayer; // disimpan ke state, karena dia punya property collide yang akan dipanggil nanti di addCollisions()
 
     // keperluan kamera
     this.scene.physics.world.setBounds(

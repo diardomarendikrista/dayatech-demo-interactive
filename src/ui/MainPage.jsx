@@ -1,12 +1,9 @@
 import Modal from "ui/Modal";
 import InteractionHandler from "ui/InteractionHandler";
-import { useAtom } from "jotai";
-import { showDialogAtom } from "store";
 import Game from "game/Game";
 import ControllerMobile from "./ControllerMobile";
 
 export default function MainPage() {
-  const [showModal] = useAtom(showDialogAtom);
 
   return (
     <div className="relative w-full h-[100vh]">
@@ -17,7 +14,7 @@ export default function MainPage() {
       <InteractionHandler />
 
       {/* Modal Dialog */}
-      {showModal && <Modal />}
+      <Modal />
 
       {/* mobile control */}
       <ControllerMobile />

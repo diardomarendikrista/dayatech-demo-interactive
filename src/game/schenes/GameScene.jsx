@@ -36,7 +36,7 @@ class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    if (this.player && this.canMove) {
+    if (this.player) {
       this.player.move(this.cursors, this.wasd, this.mobileInput);
     }
 
@@ -46,6 +46,8 @@ class GameScene extends Phaser.Scene {
         this.interactingObject = null;
       }
     }
+
+    this.input.keyboard.clearCaptures(); 
   }
 
   createPlayer() {
@@ -130,9 +132,8 @@ class GameScene extends Phaser.Scene {
       this.mobileInput = event.detail;
     });
 
-    this.canMove = true;
     window.addEventListener("updateCanMove", (event) => {
-      this.canMove = event.detail; // Ambil nilai dari React
+      this.input.keyboard.enabled = event.detail;
     });
   }
 }

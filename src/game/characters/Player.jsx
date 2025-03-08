@@ -51,29 +51,29 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   move(cursors, wasd, mobileInput) {
-    const isRunning = cursors.shift?.isDown || wasd.shift?.isDown;
+    const isRunning = cursors.shift?.isDown || wasd?.shift?.isDown;
     const speed = isRunning ? 400 : 200;
     let anim = this.lastPosition.anim;
     let moving = false;
 
     this.setVelocity(0);
 
-    if (cursors.left.isDown || wasd.left.isDown || mobileInput.left) {
+    if (cursors.left.isDown || wasd?.left.isDown || mobileInput.left) {
       this.setVelocityX(-speed);
       this.anims.play("walk-left", true);
       anim = "walk-left";
       moving = true;
-    } else if (cursors.right.isDown || wasd.right.isDown || mobileInput.right) {
+    } else if (cursors.right.isDown || wasd?.right.isDown || mobileInput.right) {
       this.setVelocityX(speed);
       this.anims.play("walk-right", true);
       anim = "walk-right";
       moving = true;
-    } else if (cursors.up.isDown || wasd.up.isDown || mobileInput.up) {
+    } else if (cursors.up.isDown || wasd?.up.isDown || mobileInput.up) {
       this.setVelocityY(-speed);
       this.anims.play("walk-up", true);
       anim = "walk-up";
       moving = true;
-    } else if (cursors.down.isDown || wasd.down.isDown || mobileInput.down) {
+    } else if (cursors.down.isDown || wasd?.down.isDown || mobileInput.down) {
       this.setVelocityY(speed);
       this.anims.play("walk-down", true);
       anim = "walk-down";

@@ -7,16 +7,18 @@ import PsikologDialog from "./dialogues/Psikolog";
 import InstrukturDialog from "./dialogues/Instruktur";
 
 export default function Modal() {
+  const [showModal] = useAtom(showDialogAtom);
   const [, setShowDialog] = useAtom(showDialogAtom);
   const [dialogWith] = useAtom(dialogWithAtom);
 
   return (
     <div
       className={cn(
-        "relative absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 bg-[#fff] rounded-[8px]",
-        "w-[95%] md:w-[50%] p-[20px] max-h-[90%] overflow-y-auto",
+        "relative absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-[8px]",
+        "w-[95%] md:w-[50%] p-[20px] max-h-[90vh] overflow-y-auto",
         "shadow-[0px_0px_10px_0px_rgba(0,0,0,0.75)]",
-        "z-50"
+        "z-50 inline-flex flex-col",
+        { hidden: !showModal }
       )}
     >
       {dialogWith !== "mentari" && (
@@ -30,7 +32,7 @@ export default function Modal() {
         </div>
       )}
 
-      {dialogWith === "mentari" && <MentariDialog />}
+      <MentariDialog />
       {dialogWith === "kerjakan" && <TestDialog />}
       {dialogWith === "instruktur" && <InstrukturDialog />}
       {dialogWith === "psikolog" && <PsikologDialog />}
